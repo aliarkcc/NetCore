@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,22 +26,22 @@ namespace BusinessLayer.Concrete
 
         public void Delete(Category category)
         {
-            throw new NotImplementedException();
+            _categoryDal.Delete(category);
         }
 
-        public List<Category> GetAll()
+        public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return _categoryDal.GetAll().ToList();
         }
 
         public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            return _categoryDal.Get(c => c.CategoryId == id);
         }
 
         public void Update(Category category)
         {
-            throw new NotImplementedException();
+            _categoryDal.Update(category);
         }
     }
 }
