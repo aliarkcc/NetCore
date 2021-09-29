@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,13 @@ namespace NetCore.Controllers
 {
     public class CommentController : Controller
     {
+        ICommentService _commentService;
+
+        public CommentController(ICommentService commentService)
+        {
+            _commentService = commentService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -18,9 +26,10 @@ namespace NetCore.Controllers
             return PartialView();
         }
 
-        public PartialViewResult CommentListByBlog()
+        public PartialViewResult CommentListByBlog(int id)
         {
-            return PartialView();
+            var values = _commentService.GetAll(x=>x.BlogId==id);
+            return PartialView(values);
         }
     }
 }

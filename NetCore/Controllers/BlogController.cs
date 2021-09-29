@@ -25,6 +25,7 @@ namespace NetCore.Controllers
 
         public IActionResult BlogDetails(int id)
         {
+            ViewBag.i = id;
             var values = _blogService.GetAll(c=>c.BlogId==id);
             return View(values);
         }

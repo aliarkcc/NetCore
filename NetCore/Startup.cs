@@ -34,6 +34,9 @@ namespace NetCore
 
             services.AddSingleton<IBlogService, BlogManager>();
             services.AddSingleton<IBlogDal, EfBlogDal>();
+
+            services.AddSingleton<ICommentService, CommentManager>();
+            services.AddSingleton<ICommentDal, EfCommentDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
