@@ -37,6 +37,9 @@ namespace NetCore
 
             services.AddSingleton<ICommentService, CommentManager>();
             services.AddSingleton<ICommentDal, EfCommentDal>();
+
+            services.AddSingleton<IWriterDal, EfWriterDal>();
+            services.AddSingleton<IWriterService, WriterManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
