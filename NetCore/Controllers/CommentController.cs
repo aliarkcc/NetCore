@@ -16,21 +16,21 @@ namespace NetCore.Controllers
         {
             _commentService = commentService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.isq = 4;
             return View();
         }
         [HttpGet]
-        public PartialViewResult PartialAddComment()
+        public PartialViewResult PartialAddComment(int ids)
         {
-            ViewBag.isa = 11;
-            return PartialView();
+            ViewBag.isq = 4;
+            return PartialView(ViewBag.isq);
         }
         [HttpPost]
         public PartialViewResult PartialAddComment(Comment p)
         {
-            ViewBag.isa = 11;
             p.CommentDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             p.CommentStatus = true;
             p.BlogId = 2;
@@ -40,7 +40,6 @@ namespace NetCore.Controllers
 
         public PartialViewResult CommentListByBlog(int id)
         {
-            ViewBag.isa = 11;
             var values = _commentService.GetAll(x=>x.BlogId==id);
             return PartialView(values);
         }
