@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -19,9 +20,30 @@ namespace BusinessLayer.Concrete
             _aboutDal = aboutDal;
         }
 
+        public void Add(About q)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Delete(About q)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<About> GetAll(Expression<Func<About, bool>> filter = null)
         {
             return _aboutDal.GetAll().ToList();
+        }
+
+        public About GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(About q)
+        {
+            throw new NotImplementedException();
         }
     }
 }

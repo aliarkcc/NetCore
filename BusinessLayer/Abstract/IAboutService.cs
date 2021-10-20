@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using Core.Utilities.Response;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IAboutService
+    public interface IAboutService:IGenericService<About>
     {
-        List<About> GetAll(Expression<Func<About, bool>> filter = null);
+        //List<About> GetAll(Expression<Func<About, bool>> filter = null);
+        //IResponse Add1(About a);
     }
 }
