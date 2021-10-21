@@ -18,8 +18,15 @@ namespace NetCore.Controllers
 
         public IActionResult Index()
         {
-            var values = _aboutService.GetAll();
-            return View(values);
+            var response = _aboutService.GetAll();
+            if(response.Success)
+            {
+                return View(response.Data);
+            }          
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
         public PartialViewResult SocialMediaAbout()
         {

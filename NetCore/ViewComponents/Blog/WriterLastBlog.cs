@@ -19,7 +19,7 @@ namespace NetCore.ViewComponents.Blog
         public IViewComponentResult Invoke()
         {
             var values = _blogService.GetBlogListWriter(1);
-            return View(values);
+            return View(values.Data);
         }
     }
 }

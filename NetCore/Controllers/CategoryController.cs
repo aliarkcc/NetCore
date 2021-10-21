@@ -20,8 +20,12 @@ namespace NetCore.Controllers
 
         public IActionResult Index()
         {
-            var values=_categoryService.GetAll();
-            return View(values);
+            var response=_categoryService.GetAll();
+            if (response.Success)
+            {
+                return View(response.Data);
+            }
+            return BadRequest(response.Message);
         }
     }
 }

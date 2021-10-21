@@ -18,8 +18,8 @@ namespace NetCore.ViewComponents.Blog
 
         public IViewComponentResult Invoke()
         {
-            var values = _blogService.GetAll().Take(3).ToList();
-            return View(values);
+            var values = _blogService.GetAll();
+            return View(values.Data);
         }
     }
 }

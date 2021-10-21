@@ -20,28 +20,28 @@ namespace BusinessLayer.Concrete
             _aboutDal = aboutDal;
         }
 
-        public void Add(About q)
+        public IResponse Add(About q)
         {
             throw new NotImplementedException();
         }
 
-
-        public void Delete(About q)
+        public IResponse Delete(About q)
         {
             throw new NotImplementedException();
         }
 
-        public List<About> GetAll(Expression<Func<About, bool>> filter = null)
+        public IDataResponse<List<About>> GetAll(Expression<Func<About, bool>> filter = null)
         {
-            return _aboutDal.GetAll().ToList();
+            var data = _aboutDal.GetAll();
+            return new SuccessDataResponse<List<About>>(data);
         }
 
-        public About GetById(int id)
+        public IDataResponse<About> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(About q)
+        public IResponse Update(About q)
         {
             throw new NotImplementedException();
         }

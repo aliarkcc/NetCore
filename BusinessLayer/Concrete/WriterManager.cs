@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -19,32 +20,33 @@ namespace BusinessLayer.Concrete
             _writerDal = writerDal;
         }
 
-        public void Add(Writer writer)
+        public IResponse Add(Writer q)
         {
-            _writerDal.Add(writer);
+            _writerDal.Add(q);
+            return new SuccessResponse();
         }
 
-        public void Delete(Writer writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Writer> GetAll(Expression<Func<Writer, bool>> filter = null)
+        public IResponse Delete(Writer q)
         {
             throw new NotImplementedException();
         }
 
-        public Writer GetById(int id)
+        public IDataResponse<List<Writer>> GetAll(Expression<Func<Writer, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
 
-        public List<Writer> GetListWithCategory()
+        public IDataResponse<Writer> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Writer writer)
+        public IDataResponse<List<Writer>> GetListWithCategory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResponse Update(Writer q)
         {
             throw new NotImplementedException();
         }

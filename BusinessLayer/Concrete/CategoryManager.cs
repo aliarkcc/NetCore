@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -19,29 +20,34 @@ namespace BusinessLayer.Concrete
             _categoryDal = categoryDal;
         }
 
-        public void Add(Category category)
+        public IResponse Add(Category q)
         {
-            _categoryDal.Add(category);
+            _categoryDal.Add(q);
+            return new SuccessResponse();
         }
 
-        public void Delete(Category category)
+        public IResponse Delete(Category q)
         {
-            _categoryDal.Delete(category);
+            _categoryDal.Delete(q);
+            return new SuccessResponse();
         }
 
-        public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
+        public IDataResponse<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            return _categoryDal.GetAll().ToList();
+            var data = _categoryDal.GetAll();
+            return new SuccessDataResponse<List<Category>>(data);
         }
 
-        public Category GetById(int id)
+        public IDataResponse<Category> GetById(int id)
         {
-            return _categoryDal.Get(c => c.CategoryId == id);
+            var data = _categoryDal.Get(x => x.CategoryId == id);
+            return new SuccessDataResponse<Category>(data);
         }
 
-        public void Update(Category category)
+        public IResponse Update(Category q)
         {
-            _categoryDal.Update(category);
+            _categoryDal.Update(q);
+            return new SuccessResponse();
         }
     }
 }

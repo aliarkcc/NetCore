@@ -14,22 +14,33 @@ namespace NetCore.Controllers
     public class BlogController : Controller
     {
         IBlogService _blogService;
+        ICommentService _commentService;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(IBlogService blogService,ICommentService commentService)
         {
             _blogService = blogService;
+            _commentService = commentService;
         }
         public IActionResult Index()
         {
-            var values = _blogService.GetListWithCategory();
-            return View(values);
+            var response = _blogService.GetListWithCategory();
+            if(response.Success)
+            {
+                return View(response.Data);
+            }
+            return BadRequest(response.Message);
         }
 
         public IActionResult BlogDetails(int id)
         {
             ViewBag.i = id;
-            var values = _blogService.GetAll(c=>c.BlogId==id);
-            return View(values);
+            var response = _blogService.GetAll(x=>x.BlogId==id);
+            ViewBag.commentCount = _commentService.GetAll(x => x.BlogId == id).Data.Count();
+            if (response.Success)
+            {
+                return View(response.Data);
+            }
+            return BadRequest(response.Message);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -19,16 +20,36 @@ namespace BusinessLayer.Concrete
             _commentDal = commentDal;
         }
 
-        public void Add(Comment comment)
+        public IResponse Add(Comment q)
         {
-            _commentDal.Add(comment);
+            throw new NotImplementedException();
         }
 
-        public List<Comment> GetAll(Expression<Func<Comment, bool>> filter = null)
+        public IResponse Delete(Comment q)
         {
-            return filter == null
-                ? _commentDal.GetAll().ToList()
-                : _commentDal.GetAll(filter).ToList();
+            throw new NotImplementedException();
+        }
+
+        public IDataResponse<List<Comment>> GetAll(Expression<Func<Comment, bool>> filter = null)
+        {
+            if (filter == null)
+            {
+               return new SuccessDataResponse<List<Comment>>(_commentDal.GetAll().ToList());
+            }
+            else
+            {
+               return new SuccessDataResponse<List<Comment>>( _commentDal.GetAll(filter).ToList());
+            }
+        }
+
+        public IDataResponse<Comment> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResponse Update(Comment q)
+        {
+            throw new NotImplementedException();
         }
     }
 }

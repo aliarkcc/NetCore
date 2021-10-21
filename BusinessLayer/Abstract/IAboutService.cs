@@ -11,7 +11,6 @@ namespace BusinessLayer.Abstract
 {
     public interface IAboutService:IGenericService<About>
     {
-        //List<About> GetAll(Expression<Func<About, bool>> filter = null);
-        //IResponse Add1(About a);
+
     }
 }

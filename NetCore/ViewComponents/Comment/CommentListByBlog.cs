@@ -18,7 +18,7 @@ namespace NetCore.ViewComponents.Comment
         public IViewComponentResult Invoke(int id)
         {
             var values = _commentService.GetAll(x=>x.BlogId==id);
-            return View(values);
+            return View(values.Data);
         }
     }
 }

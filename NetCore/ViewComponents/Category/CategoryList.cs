@@ -19,7 +19,7 @@ namespace NetCore.ViewComponents.Category
         public IViewComponentResult Invoke()
         {
             var values = _categoryService.GetAll();
-            return View(values);
+            return View(values.Data);
         }
     }
 }

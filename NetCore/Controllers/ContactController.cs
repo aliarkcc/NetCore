@@ -27,7 +27,7 @@ namespace NetCore.Controllers
         {
             contact.ContactDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             contact.ContactStatus = true;
-            _contactService.ContactAdd(contact);
+            _contactService.Add(contact);
             return RedirectToAction("Index", "Blog");
         }
     }

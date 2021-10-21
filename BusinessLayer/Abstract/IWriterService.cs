@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using Core.Utilities.Response;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IWriterService
+    public interface IWriterService:IGenericService<Writer>
     {
-        void Add(Writer writer);
-        void Delete(Writer writer);
-        void Update(Writer writer);
-        List<Writer> GetAll(Expression<Func<Writer, bool>> filter = null);
-        Writer GetById(int id);
-        List<Writer> GetListWithCategory();
+        IDataResponse<List<Writer>> GetListWithCategory();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -18,38 +19,51 @@ namespace BusinessLayer.Concrete
             _blogDal = blogDal;
         }
 
-        public void Add(Blog blog)
+        public IResponse Add(Blog q)
         {
-            _blogDal.Add(blog);
+            _blogDal.Add(q);
+            return new SuccessResponse();
         }
 
-        public void Delete(Blog blog)
+        public IResponse Delete(Blog q)
         {
             throw new NotImplementedException();
         }
 
-        public List<Blog> GetAll(Expression<Func<Blog, bool>> filter = null)
+        public IDataResponse<List<Blog>> GetAll(Expression<Func<Blog, bool>> filter = null)
         {
-            return filter == null
-                ? _blogDal.GetAll().ToList()
-                : _blogDal.GetAll(filter).ToList();
+            if(filter==null)
+            {
+                var data=_blogDal.GetAll().ToList();
+                return new SuccessDataResponse<List<Blog>>(data);
+            }
+            else
+            {
+                var data = _blogDal.GetAll(filter).ToList();
+                return new SuccessDataResponse<List<Blog>>(data);
+            }
         }
 
-        public List<Blog> GetBlogListWriter(int id)
+        public IDataResponse<List<Blog>> GetBlogListWriter(int id)
         {
-            return _blogDal.GetAll(x => x.WriterId == id).ToList();
+            var data=_blogDal.GetAll(x => x.WriterId == id).ToList();
+            return new SuccessDataResponse<List<Blog>>(data);
         }
 
-        public Blog GetById(int id)
+        public IDataResponse<Blog> GetById(int id)
         {
-            return _blogDal.Get(b => b.BlogId == id);
-        }
-        public List<Blog> GetListWithCategory()
-        {
-            return _blogDal.GetListWithCategory();
+            var data =  _blogDal.Get(b => b.BlogId == id);
+            return new SuccessDataResponse<Blog>(data);
         }
 
-        public void Update(Blog blog)
+
+        public IDataResponse<List<Blog>> GetListWithCategory()
+        {
+            var data= _blogDal.GetListWithCategory();
+            return new SuccessDataResponse<List<Blog>>(data);
+        }
+
+        public IResponse Update(Blog q)
         {
             throw new NotImplementedException();
         }

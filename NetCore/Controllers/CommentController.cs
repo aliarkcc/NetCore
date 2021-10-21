@@ -20,13 +20,13 @@ namespace NetCore.Controllers
         public IActionResult Index()
         {
             ViewBag.isq = 4;
+            ViewBag.i = 4;
             return View();
         }
-        [HttpGet]
-        public PartialViewResult PartialAddComment(int ids)
+
+        public PartialViewResult PartialAddComment()
         {
-            ViewBag.isq = 4;
-            return PartialView(ViewBag.isq);
+            return PartialView();
         }
         [HttpPost]
         public PartialViewResult PartialAddComment(Comment p)
