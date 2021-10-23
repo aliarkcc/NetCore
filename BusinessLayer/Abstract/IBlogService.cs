@@ -13,5 +13,6 @@ namespace BusinessLayer.Abstract
     {
         IDataResponse<List<Blog>> GetListWithCategory();
         IDataResponse<List<Blog>> GetBlogListWriter(int id);
+        public IDataResponse<List<Blog>> GetListWithCategoryByWriter(int id);
     }
 }

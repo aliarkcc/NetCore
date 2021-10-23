@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
 using Core.Utilities.Response;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
@@ -18,9 +19,11 @@ namespace BusinessLayer.Concrete
         {
             _blogDal = blogDal;
         }
-
         public IResponse Add(Blog q)
         {
+            q.BlogStatus = true;
+            q.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            q.WriterId = 1;
             _blogDal.Add(q);
             return new SuccessResponse();
         }
@@ -66,6 +69,10 @@ namespace BusinessLayer.Concrete
         public IResponse Update(Blog q)
         {
             throw new NotImplementedException();
+        }
+        public IDataResponse<List<Blog>> GetListWithCategoryByWriter(int id)
+        {
+            return new SuccessDataResponse<List<Blog>>(_blogDal.GetListWithCategoryByWriter(id));
         }
     }
 }

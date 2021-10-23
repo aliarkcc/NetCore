@@ -1,7 +1,5 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.ValidationRules;
-using Core.Aspect.Validation;
-using Core.CrossCuttingConcerns;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
