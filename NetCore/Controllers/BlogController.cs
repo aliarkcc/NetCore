@@ -54,14 +54,7 @@ namespace NetCore.Controllers
         [HttpGet]
         public IActionResult BlogAdd()
         {
-            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            List<SelectListItem> categoryvalues = (from x in categoryManager.GetAll().Data
-                                                   select new SelectListItem
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId.ToString()
-                                                   }).ToList();
-            ViewBag.cv = categoryvalues;
+            ViewBag.cv = CategoryValues();
             return View();
         }
         [HttpPost]
@@ -85,6 +78,41 @@ namespace NetCore.Controllers
                 }
             }
             return View();
+        }
+       public IActionResult DeleteBlog(int id)
+        {
+            var blogValue = _blogService.GetById(id);
+            _blogService.Delete(blogValue.Data);
+            return RedirectToAction("BlogListByWriter");
+        }
+        [HttpGet]
+        public IActionResult EditBlog(int id)
+        {
+            ViewBag.cv = CategoryValues();
+            var blogValue = _blogService.GetById(id);
+            return View(blogValue.Data);
+        }
+        [HttpPost]
+        public IActionResult EditBlog(Blog b)
+        {
+            var currentBlog = _blogService.GetById(b.BlogId);
+            b.BlogCreateDate = currentBlog.Data.BlogCreateDate;
+            b.WriterId = currentBlog.Data.WriterId;
+            b.BlogStatus = currentBlog.Data.BlogStatus;
+            ViewBag.cv = CategoryValues();
+             _blogService.Update(b);
+            return RedirectToAction("BlogListByWriter");
+        }
+        public List<SelectListItem> CategoryValues()
+        {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            List<SelectListItem> categoryValues = (from x in categoryManager.GetAll().Data
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryId.ToString()
+                                                   }).ToList();
+            return categoryValues;
         }
     }
 }

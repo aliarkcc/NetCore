@@ -30,7 +30,8 @@ namespace BusinessLayer.Concrete
 
         public IResponse Delete(Blog q)
         {
-            throw new NotImplementedException();
+            _blogDal.Delete(q);
+            return new SuccessResponse();
         }
 
         public IDataResponse<List<Blog>> GetAll(Expression<Func<Blog, bool>> filter = null)
@@ -68,7 +69,8 @@ namespace BusinessLayer.Concrete
 
         public IResponse Update(Blog q)
         {
-            throw new NotImplementedException();
+            _blogDal.Update(q);
+            return new SuccessResponse();
         }
         public IDataResponse<List<Blog>> GetListWithCategoryByWriter(int id)
         {
