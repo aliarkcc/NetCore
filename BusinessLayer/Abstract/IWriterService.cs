@@ -11,6 +11,6 @@ namespace BusinessLayer.Abstract
 {
     public interface IWriterService:IGenericService<Writer>
     {
-        IDataResponse<List<Writer>> GetListWithCategory();
+        IDataResponse<List<Writer>> GetWriterById(int id);
     }
 }

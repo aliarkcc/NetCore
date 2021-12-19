@@ -9,10 +9,15 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IBlogService:IGenericService<Blog>
+    public interface IBlogService
     {
+        IResponse Add(Blog q);
+        IResponse Delete(Blog b);
+        IResponse Update(Blog q);
+        IDataResponse<List<Blog>> GetAll(Expression<Func<Blog, bool>> filter = null);
+        IDataResponse<Blog> GetById(int id);
         IDataResponse<List<Blog>> GetListWithCategory();
         IDataResponse<List<Blog>> GetBlogListWriter(int id);
-        public IDataResponse<List<Blog>> GetListWithCategoryByWriter(int id);
+        IDataResponse<List<Blog>> GetListWithCategoryByWriter(int id);
     }
 }

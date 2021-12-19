@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -19,6 +20,7 @@ namespace NetCore.Controllers
     {
         IBlogService _blogService;
         ICommentService _commentService;
+        Context c = new Context();
 
         public BlogController(IBlogService blogService, ICommentService commentService)
         {
@@ -48,7 +50,10 @@ namespace NetCore.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var values = _blogService.GetListWithCategoryByWriter(1);
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var values = _blogService.GetListWithCategoryByWriter(writerID);
             return View(values.Data);
         }
         [HttpGet]
@@ -60,13 +65,17 @@ namespace NetCore.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterId).FirstOrDefault();
             BlogValidatior r = new BlogValidatior();
             ValidationResult results = r.Validate(blog);
             if (results.IsValid)
             {
                 blog.BlogStatus = true;
                 blog.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                blog.WriterId = 1;
+               
+                blog.WriterId = writerID;
                 _blogService.Add(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
@@ -95,9 +104,12 @@ namespace NetCore.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog b)
         {
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
+            var writerID = c.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterId).FirstOrDefault();
             var currentBlog = _blogService.GetById(b.BlogId);
             b.BlogCreateDate = currentBlog.Data.BlogCreateDate;
-            b.WriterId = currentBlog.Data.WriterId;
+            b.WriterId = writerID;
             b.BlogStatus = currentBlog.Data.BlogStatus;
             ViewBag.cv = CategoryValues();
              _blogService.Update(b);

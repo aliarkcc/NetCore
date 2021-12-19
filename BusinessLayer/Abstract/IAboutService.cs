@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IAboutService:IGenericService<About>
+    public interface IAboutService
     {
-
+        IResponse Add(About q);
+        IResponse Delete(About q);
+        IResponse Update(About q);
+        IDataResponse<List<About>> GetAll(Expression<Func<About, bool>> filter = null);
+        IDataResponse<About> GetById(int id);
     }
 }

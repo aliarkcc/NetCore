@@ -26,7 +26,7 @@ namespace BusinessLayer.Concrete
             return new SuccessResponse();
         }
 
-        public IResponse Delete(Contact q)
+        public IResponse Delete(Contact c)
         {
             throw new NotImplementedException();
         }

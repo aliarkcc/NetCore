@@ -38,17 +38,17 @@ namespace BusinessLayer.Concrete
 
         public IDataResponse<Writer> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResponse<Writer>(_writerDal.Get(x => x.WriterId == id));
         }
-
-        public IDataResponse<List<Writer>> GetListWithCategory()
+        public IDataResponse<List<Writer>> GetWriterById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResponse<List<Writer>>(_writerDal.GetAll(x=>x.WriterId==id));
         }
 
         public IResponse Update(Writer q)
         {
-            throw new NotImplementedException();
+            _writerDal.Update(q);
+            return new SuccessResponse();
         }
     }
 }

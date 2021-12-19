@@ -1,6 +1,7 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -68,6 +69,16 @@ namespace NetCore
 
             services.AddSingleton<IContactDal, EfContactDal>();
             services.AddSingleton<IContactService, ContactManager>();
+
+            services.AddSingleton<INotificationService, NotificationManager>();
+            services.AddSingleton<INotificationDal, EfNotificationDal>();
+
+            services.AddSingleton<IMessageDal, EfMessageDal>();
+            services.AddSingleton<IMessageService, MessageManager>();
+
+            services.AddSingleton<IMessage2Dal, EfMessage2Dal>();
+            services.AddSingleton<IMessage2Service, Message2Manager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +109,10 @@ namespace NetCore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -28,9 +28,9 @@ namespace BusinessLayer.Concrete
             return new SuccessResponse();
         }
 
-        public IResponse Delete(Blog q)
+        public IResponse Delete(Blog b)
         {
-            _blogDal.Delete(q);
+            _blogDal.Delete(b);
             return new SuccessResponse();
         }
 

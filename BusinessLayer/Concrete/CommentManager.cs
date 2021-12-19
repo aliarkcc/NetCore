@@ -25,7 +25,7 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
-        public IResponse Delete(Comment q)
+        public IResponse Delete(Comment c)
         {
             throw new NotImplementedException();
         }
